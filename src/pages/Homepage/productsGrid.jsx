@@ -13,7 +13,7 @@ export function ProductsGrid({ products, setCheckoutItems,loadCartItems}) {
         <div className="home-page">
 
 
-            <div className="products-grid">
+            <div className="products-grid" data-testid="test-container">
                 {
                     products.map((product) => {
 

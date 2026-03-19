@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProductComponent } from "./productcomponent";
 
 vi.mock('axios',()=>({
@@ -10,9 +10,11 @@ vi.mock('axios',()=>({
     }
 }));
 
-
+let product;
+let loadCartItems;
 describe('test component render on screen', () => {
-    let product={
+    beforeEach(()=>{
+        product={
                 id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
                 image: "images/products/athletic-cotton-socks-6-pairs.jpg",
                 name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -23,7 +25,9 @@ describe('test component render on screen', () => {
                 priceCents: 1090,
                 keywords: ["socks", "sports", "apparel"]
             }
-let loadCartItems=vi.fn();
+        loadCartItems=vi.fn();
+    })
+    
     it('expects data from backend', async () => {
         axios.get.mockResolvedValue({
             data: [{

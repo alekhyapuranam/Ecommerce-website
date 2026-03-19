@@ -4,23 +4,26 @@ export function ProductComponent({ product, loadCartItems }) {
 
 
     let [optionSelected, setOptionSelected] = useState(1);
+    let [addedMessageOpacity, setAddedMessageOpacity]=useState(false);
 
 
     async function addToCartFunction() {
         let quantity = Number(optionSelected);
         // console.log(optionSelected);
-
+        setAddedMessageOpacity(true);
         await axios.post('/api/cart-items', {
             "productId": product.id,
             "quantity": quantity
         })
 
         loadCartItems();
+       
 
     }
+     
 
     return (
-        <div key={product.id} className="product-container">
+        <div key={product.id} className="product-container" data-testid="product-test-container">
             <div className="product-image-container">
                 <img className="product-image" data-testId="test-product-image"
                     src={product.image} />
@@ -61,7 +64,7 @@ export function ProductComponent({ product, loadCartItems }) {
 
             <div className="product-spacer"></div>
 
-            <div className="added-to-cart">
+       <div className="added-to-cart" style ={{ opacity : addedMessageOpacity ? 5 : 0 }}>
                 <img src="images/icons/checkmark.png" />
                 Added
             </div>
